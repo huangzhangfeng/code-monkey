@@ -20,3 +20,9 @@
 在相应策略目录下执行
 > python ./backtest.py
 
+## 策略列表
+- [二八策略](https://github.com/ShekiLyu/code-monkey/tree/master/two-eight)
+- Dual Thrust 策略
+- 海龟策略
+- Long/Short 策略
+- 资产配置
