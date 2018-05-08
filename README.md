@@ -1,6 +1,6 @@
 # code-monkey
 ## 介绍
-本代码库是我学习各种量化策略的源码实现以及心得体会。代码采用了RQalpha框架进行回测，有关RQalpha的内容请参考[https://github.com/ricequant/rqalpha](https://github.com/ricequant/rqalpha)
+本代码库是我学习各种量化策略的源码实现以及心得体会。代码采用了RQalpha框架进行回测，有关RQalpha的内容请参考:[https://github.com/ricequant/rqalpha](https://github.com/ricequant/rqalpha)
 
 ## 目录结构
 每个目录就是一种量化策略，目录里包含以下几个文件：
