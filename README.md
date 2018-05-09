@@ -22,7 +22,7 @@
 
 ## 策略列表
 - [二八策略](https://github.com/ShekiLyu/code-monkey/tree/master/two-eight)
-- Dual Thrust 策略
+- [Dual Thrust策略](https://github.com/ShekiLyu/code-monkey/tree/master/dual-thrust)
 - 海龟策略
 - Long/Short 策略
 - 资产配置
