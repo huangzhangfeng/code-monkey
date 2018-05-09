@@ -3,7 +3,7 @@
 '''
 # -*- coding: utf-8 -*-
 
-from rqalpha.api import update_universe, logger, order_target_percent, history_bars 
+from rqalpha.api import update_universe, logger, order_target_percent, history_bars
 
 STOCKS = ['000300.XSHG', '000905.XSHG']
 

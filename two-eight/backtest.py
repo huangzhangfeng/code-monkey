@@ -27,7 +27,7 @@ config = {
         "benchmark": "000001.XSHG"
     },
     "extra": {
-        "log_level": "verbose",
+        "log_level": "info",
     },
     "mod": {
         "sys_analyser": {
