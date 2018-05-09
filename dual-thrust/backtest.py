@@ -24,7 +24,7 @@ config = {
         "end_date": "",
         "securities": ['stock'],
         "stock_starting_cash": 100000,
-        "benchmark": "000001.XSHG"
+        "benchmark": "000905.XSHG"
     },
     "extra": {
         "log_level": "info",
