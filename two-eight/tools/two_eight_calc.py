@@ -24,7 +24,7 @@ s2delta = (rlt2.iloc[0]['close']-rlt2.iloc[20]['close'])/rlt2.iloc[20]['close']
 
 s1delta_prev = (rlt1.iloc[1]['close']-rlt1.iloc[21]['close'])/rlt1.iloc[21]['close']
 s2delta_prev = (rlt2.iloc[1]['close']-rlt2.iloc[21]['close'])/rlt2.iloc[21]['close']
-
+import pdb; pdb.set_trace()
 hold_prev = None
 if s1delta_prev < 0 and s2delta_prev < 0:
     hold_prev = 'cash'
