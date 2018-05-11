@@ -15,13 +15,14 @@ def init(context):
     context.stocks = STOCKS
     update_universe(context.stocks)
     context.hold = None
+    context.window_size = 20
 
 def handle_bar(context, bar_dict):
     '''
     交易函数
     '''
-    s1 = history_bars(context.stocks[0], 21, '1d','close')
-    s2 = history_bars(context.stocks[1], 21, '1d','close')
+    s1 = history_bars(context.stocks[0], context.window_size + 1, '1d','close')
+    s2 = history_bars(context.stocks[1], context.window_size + 1, '1d','close')
     logger.debug('s1:' + str(s1))
     logger.debug('s2:' + str(s2))
     s1delta = (s1[-1] - s1[0]) / s1[0]
@@ -45,9 +46,3 @@ def handle_bar(context, bar_dict):
         log_str += ' buy ' + trading
     context.hold = trading
     logger.info(log_str)
-
-def before_trading(context):
-    '''
-    交易前执行的事件
-    '''
-    return

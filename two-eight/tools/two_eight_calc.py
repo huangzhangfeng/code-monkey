@@ -8,6 +8,7 @@ import tushare as ts
 
 s1 = '000300.XSHG'
 s2 = '000905.XSHG'
+window_size = 20
 cons = None
 retry = 3
 while cons is None and retry > 0:
@@ -19,12 +20,12 @@ rlt1 = ts.bar(code = s1, conn = cons, start_date = two_months_ago.isoformat(), f
 
 rlt2 = ts.bar(code = s2, conn = cons, start_date = two_months_ago.isoformat(), freq = 'd', asset = 'INDEX')
 
-s1delta = (rlt1.iloc[0]['close']-rlt1.iloc[20]['close'])/rlt1.iloc[20]['close']
-s2delta = (rlt2.iloc[0]['close']-rlt2.iloc[20]['close'])/rlt2.iloc[20]['close']
+s1delta = (rlt1.iloc[0].close -rlt1.iloc[window_size].close)/rlt1.iloc[window_size].close
+s2delta = (rlt2.iloc[0].close -rlt2.iloc[window_size].close)/rlt2.iloc[window_size].close
 
-s1delta_prev = (rlt1.iloc[1]['close']-rlt1.iloc[21]['close'])/rlt1.iloc[21]['close']
-s2delta_prev = (rlt2.iloc[1]['close']-rlt2.iloc[21]['close'])/rlt2.iloc[21]['close']
-import pdb; pdb.set_trace()
+s1delta_prev = (rlt1.iloc[1].close -rlt1.iloc[window_size+1].close)/rlt1.iloc[window_size+1].close
+s2delta_prev = (rlt2.iloc[1].close -rlt2.iloc[window_size+1].close)/rlt2.iloc[window_size+1].close
+#import pdb; pdb.set_trace()
 hold_prev = None
 if s1delta_prev < 0 and s2delta_prev < 0:
     hold_prev = 'cash'
