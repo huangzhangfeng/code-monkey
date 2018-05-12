@@ -13,9 +13,9 @@ base:
   # 策略源代码
   source_code: ~
   # 回测起始日期
-  start_date: 2008-05-01
+  start_date: 2015-01-01
   # 回测结束日期(如果是实盘，则忽略该配置)
-  end_date: ~
+  end_date: 2016-01-01
   # 设置保证金乘数，默认为1
   margin_multiplier: 1
   # 运行类型，`b` 为回测，`p` 为模拟交易, `r` 为实盘交易。

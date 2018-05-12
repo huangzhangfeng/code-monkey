@@ -12,8 +12,8 @@ def init(context):
     logger.info("init")
     context.stock = '000905.XSHG'
     context.n = 3
-    context.k1 = 0.5
-    context.k2 = 0.5
+    context.k1 = 0.7
+    context.k2 = 0.7
     context.hold = 'cash'
     update_universe(context.stock)
 
@@ -34,7 +34,8 @@ def handle_bar(context, bar_dict):
     action = 'hold'
     top_bound = context.k1 * dt_range
     bottom_bound = context.k2 * dt_range * -1
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
+
     if growth > top_bound:
         action = 'buy'
     elif growth < bottom_bound:
