@@ -3,7 +3,7 @@
 '''
 # -*- coding: utf-8 -*-
 
-from rqalpha.api import update_universe, logger, order_target_percent, history_bars
+from rqalpha.api import update_universe, logger, order_target_percent, history_bars, scheduler
 
 STOCKS = ['000300.XSHG', '000905.XSHG']
 
@@ -16,8 +16,12 @@ def init(context):
     update_universe(context.stocks)
     context.hold = None
     context.window_size = 20
+    scheduler.run_weekly(handle_bar_weekly, tradingday=1)
 
 def handle_bar(context, bar_dict):
+    pass
+
+def handle_bar_weekly(context, bar_dict):
     '''
     交易函数
     '''
