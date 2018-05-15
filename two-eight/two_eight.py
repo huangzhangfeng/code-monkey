@@ -14,10 +14,12 @@ def init(context):
     logger.info("init")
     context.stocks = STOCKS
     update_universe(context.stocks)
-    context.hold = 'cash'
-    context.trade = None
-    context.window_size = 20
-    context.update_date = None
+    context.hold = 'cash' #当前持仓品种，取值为STOCKS里的值以及cash
+    context.trade = None #下一步调仓品种，取值范围同hold，取值为None时表示持仓不调
+    context.window_size = 20 #趋势判断窗口，往前看20个交易日
+
+    #记录最近一次的调仓日期，大多数基金存在7日1.5%的交易手续费，两次调仓间隔大于7天才调仓
+    context.trade_date = None
 
 def fund_trading(context):
     '''
@@ -72,10 +74,10 @@ def handle_bar(context, bar_dict):
             trading = context.stocks[1]
     if trading is None or trading == context.hold:
         return
-    if context.update_date is not None:
-        holding_days = context.now - context.update_date
+    if context.trade_date is not None:
+        holding_days = context.now - context.trade_date
         if holding_days.days < 8:
             return
     context.trade = trading
-    context.update_date = context.now
+    context.trade_date = context.now
     logger.info(log_str)
