@@ -3,7 +3,7 @@
 '''
 # -*- coding: utf-8 -*-
 
-from rqalpha.api import update_universe, logger, order_target_percent, history_bars
+from rqalpha.api import logger, order_target_percent, history_bars
 
 STOCKS = ['000300.XSHG', '000905.XSHG']
 
@@ -13,12 +13,15 @@ def init(context):
     '''
     logger.info("init")
     context.stocks = STOCKS
-    update_universe(context.stocks)
-    context.hold = 'cash' #当前持仓品种，取值为STOCKS里的值以及cash
-    context.trade = None #下一步调仓品种，取值范围同hold，取值为None时表示持仓不调
-    context.window_size = 20 #趋势判断窗口，往前看20个交易日
-
-    #记录最近一次的调仓日期，大多数基金存在7日1.5%的交易手续费，两次调仓间隔大于7天才调仓
+    #当前持仓品种，取值为STOCKS里的值以及cash
+    context.hold = 'cash'
+    #下一步调仓品种，取值范围同hold，取值为None时表示持仓不调
+    context.trade = None
+    #趋势判断窗口，往前看20个交易日
+    context.window_size = 20
+    #记录最近一次的调仓日期
+    #大多数基金存在7日内赎回1.5%的交易手续费
+    #所以两次调仓间隔大于7天才调仓
     context.trade_date = None
 
 def fund_trading(context):
@@ -62,8 +65,10 @@ def handle_bar(context, bar_dict):
     s1delta = (s1[-1] - s1[0]) / s1[0]
     s2delta = (s2[-1] - s2[0]) / s2[0]
     log_str = '[' + context.now.isoformat() + ']'
-    log_str += '沪深300 ' + str(s1[0]) + '->' + str(s1[-1]) + ' 涨幅: ' + str(round(s1delta, 3))
-    log_str += ' 中证500 '+ str(s2[0]) + '->' + str(s2[-1]) +  ' 涨幅: ' + str(round(s2delta, 3))
+    log_str += '沪深300 ' + str(s1[0]) + '->' + str(s1[-1])
+    log_str += ' 涨幅: ' + str(round(s1delta, 3))
+    log_str += ' 中证500 '+ str(s2[0]) + '->' + str(s2[-1])
+    log_str += ' 涨幅: ' + str(round(s2delta, 3))
     trading = None
     if s1delta is not None and s2delta is not None:
         if s1delta < 0 and s2delta < 0:
