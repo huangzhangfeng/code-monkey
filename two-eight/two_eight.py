@@ -3,7 +3,7 @@
 '''
 # -*- coding: utf-8 -*-
 
-from rqalpha.api import update_universe, logger, order_target_percent, history_bars, scheduler
+from rqalpha.api import update_universe, logger, order_target_percent, history_bars
 
 STOCKS = ['000300.XSHG', '000905.XSHG']
 
@@ -16,12 +16,9 @@ def init(context):
     update_universe(context.stocks)
     context.hold = None
     context.window_size = 20
-    scheduler.run_weekly(handle_bar_weekly, tradingday=1)
+    context.update_date = None
 
 def handle_bar(context, bar_dict):
-    pass
-
-def handle_bar_weekly(context, bar_dict):
     '''
     交易函数
     '''
@@ -42,11 +39,16 @@ def handle_bar_weekly(context, bar_dict):
             trading = context.stocks[1]
     if trading is None or trading == context.hold:
         return
+    if context.update_date is not None:
+        holding_days = context.now - context.update_date
+        if holding_days.days < 8:
+            return
     if context.hold is not None and context.hold != 'cash':
         order_target_percent(context.hold, 0)
         log_str += ' sell ' + context.hold
     if trading != 'cash':
-        order_target_percent(trading, 1)
+        order_target_percent(trading, 0.99)
         log_str += ' buy ' + trading
     context.hold = trading
+    context.update_date = context.now
     logger.info(log_str)

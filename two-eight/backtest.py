@@ -23,7 +23,7 @@ config = {
         "start_date": "",
         "end_date": "",
         "securities": ['stock'],
-        "stock_starting_cash": 100000,
+        "stock_starting_cash": 1000000,
         "benchmark": "000001.XSHG"
     },
     "extra": {
