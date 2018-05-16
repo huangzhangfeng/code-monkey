@@ -58,16 +58,20 @@ def handle_bar(context, bar_dict):
     if context.trade is not None:
         fund_trading(context)
         return
-    s1 = history_bars(context.stocks[0], context.window_size + 1, '1d','close')
-    s2 = history_bars(context.stocks[1], context.window_size + 1, '1d','close')
-    logger.debug('s1:' + str(s1))
-    logger.debug('s2:' + str(s2))
-    s1delta = (s1[-1] - s1[0]) / s1[0]
-    s2delta = (s2[-1] - s2[0]) / s2[0]
+    hist_s1 = history_bars(context.stocks[0],
+                           context.window_size + 1, '1d', 'close')
+    hist_s2 = history_bars(context.stocks[1],
+                           context.window_size + 1, '1d', 'close')
+    curr_s1 = bar_dict[context.stocks[0]].close
+    curr_s2 = bar_dict[context.stocks[1]].close
+    logger.debug('s1:' + str(hist_s1))
+    logger.debug('s2:' + str(hist_s2))
+    s1delta = (curr_s1  - hist_s1[0]) / hist_s1[0]
+    s2delta = (curr_s2  - hist_s2[0]) / hist_s2[0]
     log_str = '[' + context.now.isoformat() + ']'
-    log_str += '沪深300 ' + str(s1[0]) + '->' + str(s1[-1])
+    log_str += '沪深300 ' + str(hist_s1[0]) + '->' + str(curr_s1)
     log_str += ' 涨幅: ' + str(round(s1delta, 3))
-    log_str += ' 中证500 '+ str(s2[0]) + '->' + str(s2[-1])
+    log_str += ' 中证500 '+ str(hist_s2[0]) + '->' + str(curr_s2)
     log_str += ' 涨幅: ' + str(round(s2delta, 3))
     trading = None
     if s1delta is not None and s2delta is not None:
