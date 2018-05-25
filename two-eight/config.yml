@@ -13,7 +13,7 @@ base:
   # 策略源代码
   source_code: ~
   # 回测起始日期
-  start_date: 2009-09-19
+  start_date: 2010-05-30
   # 回测结束日期(如果是实盘，则忽略该配置)
   end_date: ~
   # 设置保证金乘数，默认为1
@@ -67,4 +67,7 @@ mod:
     sys_analyser:
         enabled: true
         plot: true
+    sys_simulation:
+        enabled: true
+        slippage: 0.002
 

@@ -3,7 +3,12 @@
 '''
 # -*- coding: utf-8 -*-
 
-from rqalpha.api import logger, order_target_percent, history_bars
+from rqalpha.api import (
+    logger,
+    order_target_percent,
+    history_bars,
+    scheduler,
+)
 
 STOCKS = ['000300.XSHG', '000905.XSHG']
 
@@ -17,10 +22,12 @@ def init(context):
     context.hold = 'cash'
     #趋势判断窗口，往前看20个交易日
     context.window_size = 20
-    #滑点
-    context.slippage = 0.5
+    scheduler.run_weekly(handle_bar_weekly, tradingday=-1)
 
 def handle_bar(context, bar_dict):
+    pass
+
+def handle_bar_weekly(context, bar_dict):
     '''
     交易函数
     '''
@@ -51,9 +58,9 @@ def handle_bar(context, bar_dict):
         return
     if context.hold != 'cash':
         order_target_percent(context.hold, 0)
-        log_str += 'sell ' + context.hold
+        log_str += ' sell ' + context.hold
     if trading != 'cash':
         order_target_percent(trading, 0.99)
-        log_str += 'buy ' + trading
+        log_str += ' buy ' + trading
     context.hold = trading
     logger.info(log_str)
