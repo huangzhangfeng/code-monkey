@@ -69,5 +69,5 @@ mod:
         plot: true
     sys_simulation:
         enabled: true
-        slippage: 0.002
-
+        #slippage: 0.002
+        #matching_type: "next_bar"

@@ -22,6 +22,7 @@ def init(context):
     context.hold = 'cash'
     #趋势判断窗口，往前看20个交易日
     context.window_size = 20
+    #设置交易函数每周最后一个交易日收盘运行
     scheduler.run_weekly(handle_bar_weekly, tradingday=-1)
 
 def handle_bar(context, bar_dict):
